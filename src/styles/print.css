@@ -1,0 +1,778 @@
+/* ============================================
+   EduDocs — Print Styles
+   F4 Portrait Size (210mm x 330mm)
+   ============================================ */
+
+/* @page size is injected dynamically by renderer/index.js
+   based on portrait or landscape mode */
+
+@media print {
+  /* Kill ALL body pseudo-elements (fixed gradient overlay) that block print */
+  body::before,
+  body::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* Hide the main app and toolbar explicitly */
+  #app,
+  .print-toolbar,
+  #print-toolbar {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  #print-container {
+    position: static !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
+    z-index: 9999 !important;
+  }
+
+  .paper-preview {
+    display: block !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .paper-page {
+    display: block !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 15mm !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .paper-page.landscape-page {
+    padding: 10mm !important;
+  }
+
+  .doc-table,
+  .ls-table {
+    page-break-inside: auto;
+  }
+
+  .doc-table tr,
+  .ls-table tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}
+
+/* --- On-Screen Paper Preview --- */
+.paper-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 100px;
+  background: #d1d5db;
+  min-height: 100vh;
+}
+
+.paper-page {
+  background: white;
+  width: 210mm;
+  min-height: 330mm;
+  padding: 15mm;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 10px 30px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* --- Document Typography --- */
+.doc-print-area {
+  font-family: "Times New Roman", Times, serif;
+  color: black;
+  width: 100%;
+  font-size: 11pt;
+  line-height: 1.3;
+}
+
+/* --- Header --- */
+.doc-header {
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.doc-title {
+  font-size: 13pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.doc-subtitle {
+  font-size: 13pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+/* --- Meta Info --- */
+.doc-meta {
+  font-size: 11pt;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.doc-meta-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.doc-meta-row {
+  display: flex;
+  gap: 4px;
+}
+
+.doc-meta-label {
+  display: inline-block;
+  min-width: 75px;
+  font-weight: bold;
+}
+
+/* --- Table --- */
+.doc-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 9pt;
+  margin-bottom: 8px;
+  table-layout: fixed;
+  border-top: 0.5px solid black;
+  border-left: 0.5px solid black;
+}
+
+.doc-table th,
+.doc-table td {
+  border-right: 0.5px solid black;
+  border-bottom: 0.5px solid black;
+  border-top: none;
+  border-left: none;
+  padding: 2px 3px;
+  vertical-align: middle;
+}
+
+.doc-table th {
+  text-align: center;
+  font-weight: bold;
+  font-size: 8.5pt;
+  background-color: #fafafa;
+}
+
+.doc-table td.text-center {
+  text-align: center;
+}
+
+.doc-table td.text-left {
+  text-align: left;
+  padding-left: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.doc-table td.text-sm {
+  font-size: 7pt;
+  letter-spacing: -0.2px;
+}
+
+.doc-table td.text-xs {
+  font-size: 6pt;
+  letter-spacing: -0.4px;
+}
+
+/* Column widths (Total 100%) */
+.col-no {
+  width: 3.5%;
+}
+.col-nis {
+  width: 6.5%;
+}
+.col-nama {
+  width: 31%;
+}
+.col-jk {
+  width: 3.5%;
+}
+.col-pertemuan {
+  width: 2.2%;
+}
+.col-absen {
+  width: 2.5%;
+}
+.col-ket {
+  width: 4%;
+}
+
+/* Fix centering and overflow on narrow columns */
+.doc-table th.col-pertemuan,
+.doc-table td.col-pertemuan,
+.doc-table th.col-absen,
+.doc-table td.col-absen {
+  padding: 2px 0px;
+  font-size: 7.5pt;
+}
+
+/* --- Summary Footer --- */
+.doc-summary {
+  font-size: 11pt;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.doc-summary-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 10%;
+}
+
+.doc-signature {
+  text-align: left;
+  width: 300px;
+}
+
+.doc-signature-spacer {
+  height: 60px;
+}
+
+/* --- Print Toolbar (on-screen only) --- */
+.print-toolbar {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 12px;
+  z-index: 10000;
+}
+
+.print-toolbar button {
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.btn-print-action {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-print-action:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.btn-back-action {
+  background: #f3f5f8;
+  color: #4b5563;
+}
+
+.btn-back-action:hover {
+  background: #e5e7eb;
+}
+
+/* ============================================
+   Landscape Paper Preview (on-screen)
+   ============================================ */
+.paper-page.landscape-page {
+  width: 330mm;
+  min-height: 210mm;
+  padding: 10mm;
+}
+
+/* ============================================
+   Landscape Presensi Kelas — Component Styles
+   ============================================ */
+.ls-wrap {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 8pt;
+  color: black;
+  width: 100%;
+  line-height: 1.2;
+}
+
+.ls-header {
+  text-align: center;
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.ls-title {
+  font-size: 10pt;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.ls-sub {
+  font-size: 10pt;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.ls-meta-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 8.5pt;
+  margin-bottom: 5px;
+}
+
+.ls-meta-table td {
+  border: none;
+  padding: 1px 0;
+  vertical-align: top;
+}
+
+/* Left column: Kelas & Bulan */
+.ls-mt-left {
+  width: 75%;
+  text-align: left;
+}
+
+/* Right column: Semester & Wali Kelas — aligned near col 25 */
+.ls-mt-right {
+  width: 25%;
+  text-align: left;
+}
+
+.ls-lbl {
+  display: inline-block;
+  min-width: 70px;
+  font-weight: bold;
+}
+
+.ls-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 7pt;
+  table-layout: fixed;
+  margin-bottom: 0;
+  border-top: 0.5px solid black;
+  border-left: 0.5px solid black;
+}
+
+.ls-table th,
+.ls-table td {
+  border-right: 0.5px solid black;
+  border-bottom: 0.5px solid black;
+  border-top: none;
+  border-left: none;
+  padding: 1px 0;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.ls-table th {
+  font-weight: bold;
+  font-size: 6.5pt;
+  background-color: #f5f5f5;
+}
+
+.ls-nama,
+.ls-nama-col {
+  text-align: left !important;
+  padding-left: 2px !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ls-sm {
+  font-size: 6pt;
+}
+.ls-xs {
+  font-size: 5.5pt;
+}
+
+/* Column widths — landscape 310mm usable
+   Date cols and S/I/A all same width (1.7%) */
+.ls-no {
+  width: 2%;
+}
+.ls-nis {
+  width: 4.5%;
+}
+.ls-nama-col {
+  width: 18%;
+}
+.ls-jk-h,
+.ls-lp {
+  width: 2%;
+}
+.ls-tgl {
+  width: 1.7%;
+}
+.ls-tgl-h {
+  width: 52.7%; /* colspan="31" → 31 × 1.7% */
+}
+.ls-sia {
+  width: 1.7%;
+}
+.ls-sia-h {
+  width: 5.1%;
+} /* colspan="3" → 3 × 1.7% */
+.ls-ket {
+  width: 4.2%;
+}
+
+/* ============================================
+   Footer Table (L/P counts)
+   ============================================ */
+.ls-footer-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 8pt;
+  margin-top: 2px;
+  margin-bottom: 6px;
+}
+
+.ls-footer-table td {
+  border: none;
+  padding: 1px 0;
+  vertical-align: top;
+}
+
+.ls-ft-no {
+  width: 2%;
+}
+.ls-ft-nis {
+  width: 4.5%;
+}
+.ls-ft-nama {
+  width: 18%;
+}
+.ls-ft-jk {
+  width: 2%;
+}
+.ls-ft-spacer {
+  /* auto */
+}
+.ls-ft-label {
+  text-align: left;
+  font-size: 8.5pt;
+  padding-left: 2px;
+  white-space: nowrap;
+}
+
+/* Signatures */
+.ls-sigs {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  font-size: 8pt;
+  margin-top: 0;
+}
+
+.ls-sig {
+  text-align: left;
+  min-width: 180px;
+}
+
+.ls-sig-space {
+  height: 45px;
+}
+
+.ls-sig-name {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ============================================
+   Presensi Kelas Portrait (F4 210x330mm, 39 cols)
+   ============================================ */
+
+.pt-wrap {
+  width: 100%;
+  min-height: 280mm;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.pt-header {
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.pt-title {
+  font-size: 11pt;
+  font-weight: bold;
+}
+.pt-sub {
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+.pt-meta-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 7.5pt;
+  margin-bottom: 4px;
+}
+.pt-meta-table td {
+  border: none;
+  padding: 1px 0;
+  vertical-align: top;
+}
+.pt-mt-left { width: 60%; text-align: left; }
+.pt-mt-right { width: 40%; text-align: left; }
+.pt-lbl { display: inline-block; min-width: 55px; font-weight: bold; }
+
+.pt-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 5pt;
+  table-layout: fixed;
+  margin-bottom: 0;
+  border-top: 0.5px solid black;
+  border-left: 0.5px solid black;
+  flex-grow: 1;
+}
+
+.pt-table th,
+.pt-table td {
+  border-right: 0.5px solid black;
+  border-bottom: 0.5px solid black;
+  border-top: none;
+  border-left: none;
+  padding: 1px 0;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.pt-table th {
+  font-weight: bold;
+  font-size: 4.5pt;
+  background-color: #f5f5f5;
+}
+
+.pt-nama, .pt-nama-col {
+  text-align: left !important;
+  padding-left: 1px !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pt-sm { font-size: 4.5pt; }
+.pt-xs { font-size: 4pt; }
+
+/* Column Widths */
+.pt-no { width: 2.5%; }
+.pt-nis { width: 4.5%; }
+.pt-nama-col { width: 14%; }
+.pt-jk { width: 2.5%; }
+/* 31 dates = 2.1% each (65.1%) */
+/* S,I,A = 2.2% each (6.6%) */
+/* Ket = 4.8% */
+.pt-tgl { width: 2.1%; }
+.pt-sia { width: 2.2%; }
+.pt-ket { width: 4.8%; }
+
+/* Summary */
+.pt-summary-area {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 7pt;
+  line-height: 1.3;
+}
+.pt-summary-left {
+  display: flex;
+  flex-direction: column;
+}
+.pt-summary-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.pt-signatures {
+  display: flex;
+  gap: 30px;
+}
+.pt-sig-block {
+  text-align: center;
+  min-width: 100px;
+}
+.pt-sig-title {
+  margin-bottom: 30px;
+}
+
+/* ============================================
+   Daftar Nilai (F4 210x330mm)
+   ============================================ */
+.dn-wrap {
+  width: 100%;
+  min-height: 300mm;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
+  color: black;
+}
+
+.dn-header {
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.dn-title {
+  font-size: 11pt;
+  font-weight: bold;
+}
+
+.dn-meta-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 8pt;
+  margin-bottom: 8px;
+}
+
+.dn-mt-label { width: 120px; font-weight: normal; }
+.dn-mt-colon { width: 10px; }
+.dn-mt-value { font-weight: normal; }
+
+.dn-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 6pt;
+  table-layout: fixed;
+  margin-bottom: 0;
+  border-top: 0.5px solid black;
+  border-left: 0.5px solid black;
+  flex-grow: 1;
+}
+
+.dn-table th,
+.dn-table td {
+  border-right: 0.5px solid black;
+  border-bottom: 0.5px solid black;
+  border-top: none;
+  border-left: none;
+  padding: 2px 1px;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.dn-table th {
+  font-weight: bold;
+  font-size: 5.5pt;
+  background-color: #f5f5f5;
+}
+
+.dn-center { text-align: center; }
+
+.dn-nama {
+  text-align: left !important;
+  padding-left: 3px !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dn-sm { font-size: 5pt; }
+.dn-xs { font-size: 4.5pt; }
+
+/* Column Widths */
+.dn-col-no { width: 2.5%; }
+.dn-col-nis { width: 4.5%; }
+.dn-col-nama { width: 22%; }
+.dn-col-jk { width: 2.5%; }
+.dn-col-raport { width: 8%; }
+.dn-col-sm { width: auto; }
+
+/* Summary */
+.dn-summary-area {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 8pt;
+  line-height: 1.3;
+}
+.dn-summary-left {
+  display: flex;
+  flex-direction: column;
+}
+.dn-summary-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.dn-sig-block {
+  text-align: left;
+  min-width: 150px;
+}
+.dn-sig-title {
+  margin-bottom: 40px;
+}
+
+.fill-line {
+  display: inline-block;
+  width: 220px;
+  border-bottom: 1px solid #000;
+  vertical-align: middle;
+  height: 0.9em;
+}
+
+.fill-line.fill-line--sm {
+  width: 140px;
+}
