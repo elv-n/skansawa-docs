@@ -110,10 +110,10 @@ export function generatePresensiKelasPortrait(data) {
             </div>
           </div>
           <div class="pt-sig-block" style="text-align: left;">
-            <div class="pt-sig-title">Wonosobo, <span class="fill-line fill-line--sm"></span><br/>Wali Kelas</div>
+            <div class="pt-sig-title">Wonosobo, <br/>Wali Kelas</div>
             <div class="pt-sig-name">
               <strong><u>${waliKelas?.nama || '<span class="fill-line"></span>'}</u></strong><br/>
-              NIP. ${waliKelas?.nip || '<span class="fill-line"></span>'}
+              NIP. ${waliKelas?.nip || ''}
             </div>
           </div>
         </div>

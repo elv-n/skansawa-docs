@@ -61,7 +61,7 @@
     display: block !important;
     position: static !important;
     margin: 0 !important;
-    padding: 15mm !important;
+    padding: 15mm 10mm 15mm 25mm !important;
     width: 100% !important;
     height: auto !important;
     min-height: 0 !important;
@@ -73,7 +73,7 @@
   }
 
   .paper-page.landscape-page {
-    padding: 10mm !important;
+    padding: 10mm 10mm 10mm 25mm !important;
   }
 
   .doc-table,
@@ -102,7 +102,7 @@
   background: white;
   width: 210mm;
   min-height: 330mm;
-  padding: 15mm;
+  padding: 15mm 10mm 15mm 25mm;
   box-shadow:
     0 4px 6px rgba(0, 0, 0, 0.1),
     0 10px 30px rgba(0, 0, 0, 0.15);
@@ -328,7 +328,7 @@
 .paper-page.landscape-page {
   width: 330mm;
   min-height: 210mm;
-  padding: 10mm;
+  padding: 10mm 10mm 10mm 25mm;
 }
 
 /* ============================================

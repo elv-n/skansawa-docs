@@ -119,11 +119,11 @@ export function generatePresensiKelasLandscape(data) {
           <div>NIP 198411032011011007</div>
         </div>
         <div class="ls-sig">
-          <div>Wonosobo, <span class="fill-line fill-line--sm"></span></div>
+          <div>Wonosobo, </div>
           <div>Wali Kelas</div>
           <div class="ls-sig-space"></div>
           <div class="ls-sig-name">${waliKelas?.nama || '<span class="fill-line"></span>'}</div>
-          <div>NIP ${waliKelas?.nip || '<span class="fill-line"></span>'}</div>
+          <div>NIP ${waliKelas?.nip || ''}</div>
         </div>
       </div>
     </div>

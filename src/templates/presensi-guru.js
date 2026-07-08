@@ -115,11 +115,11 @@ export function generatePresensiGuru(data) {
         
         <div class="doc-signature">
           <br>
-          <div>Wonosobo, <span class="fill-line fill-line--sm"></span></div>
+          <div>Wonosobo, </div>
           <div>Guru Mata Pelajaran</div>
           <div class="doc-signature-spacer"></div>
           <div><span class="fill-line"></span></div>
-          <div>NIP <span class="fill-line"></span></div>
+          <div>NIP </div>
         </div>
       </div>
     </div>

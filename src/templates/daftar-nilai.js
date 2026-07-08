@@ -7,23 +7,23 @@ export function generateDaftarNilai(data) {
   const { students, waliKelas, selectedClass, selectedSemester } = data;
 
   // Only include students that have actual data (non-empty rows)
-  const filledStudents = students.filter(s => s.nama || s.nis || s.noAbsen);
+  const filledStudents = students.filter((s) => s.nama || s.nis || s.noAbsen);
 
   // Generate rows — pad to exactly 36 rows
   const rows = [];
   for (let i = 0; i < 36; i++) {
     const s = filledStudents[i] || {};
     const isFilled = !!(s.nama || s.nis || s.noAbsen);
-    
-    let nameClass = 'dn-nama';
-    if (s.nama && s.nama.length > 25) nameClass += ' dn-xs';
-    else if (s.nama && s.nama.length > 18) nameClass += ' dn-sm';
+
+    let nameClass = "dn-nama";
+    if (s.nama && s.nama.length > 25) nameClass += " dn-xs";
+    else if (s.nama && s.nama.length > 18) nameClass += " dn-sm";
 
     rows.push(`<tr>
-        <td class="dn-center">${s.noAbsen || (i + 1)}</td>
-        <td class="dn-center">${s.nis || ''}</td>
-        <td class="${isFilled ? nameClass : 'dn-nama'}">${s.nama || ''}</td>
-        <td class="dn-center">${s.jk || ''}</td>
+        <td class="dn-center">${s.noAbsen || i + 1}</td>
+        <td class="dn-center">${s.nis || ""}</td>
+        <td class="${isFilled ? nameClass : "dn-nama"}">${s.nama || ""}</td>
+        <td class="dn-center">${s.jk || ""}</td>
         <td></td>
         <td></td>
         <td></td>
@@ -54,12 +54,12 @@ export function generateDaftarNilai(data) {
         <tr>
           <td class="dn-mt-label">Kelas/Fase/Semester</td>
           <td class="dn-mt-colon">:</td>
-          <td class="dn-mt-value"><strong>${selectedClass}</strong> &nbsp;&nbsp;&nbsp;/.............../${selectedSemester || 'Gasal'}</td>
+          <td class="dn-mt-value"><strong>${selectedClass}</strong> &nbsp;&nbsp;&nbsp;/.............../${selectedSemester || "Gasal"}</td>
         </tr>
         <tr>
           <td class="dn-mt-label">Tahun Ajaran</td>
           <td class="dn-mt-colon">:</td>
-          <td class="dn-mt-value"><strong>2025-2026</strong></td>
+          <td class="dn-mt-value"><strong>2026/2027</strong></td>
         </tr>
       </table>
 
@@ -96,13 +96,13 @@ export function generateDaftarNilai(data) {
           </tr>
         </thead>
         <tbody>
-          ${rows.join('')}
+          ${rows.join("")}
         </tbody>
       </table>
 
       <!-- Summary Footer -->
       <div class="dn-summary-area">
-        <div class="dn-summary-left">
+        <div class="dn-summary-left" style="padding-left: 60px;">
           <div class="dn-sig-block" style="text-align: left;">
             <div class="dn-sig-title">Mengetahui,<br/>Kepala Sekolah</div>
             <div class="dn-sig-name">
@@ -114,10 +114,10 @@ export function generateDaftarNilai(data) {
 
         <div class="dn-summary-right">
           <div class="dn-sig-block" style="text-align: left;">
-            <div class="dn-sig-title" style="margin-bottom: 30px;">Wonosobo, <span class="fill-line fill-line--sm"></span><br/>Guru Mata Pelajaran</div>
+            <div class="dn-sig-title" style="margin-bottom: 30px;">Wonosobo, <br/>Guru Mata Pelajaran</div>
             <div class="dn-sig-name">
               <strong><u><span class="fill-line"></span></u></strong><br/>
-              NIP. <span class="fill-line"></span>
+              NIP. 
             </div>
           </div>
         </div>
