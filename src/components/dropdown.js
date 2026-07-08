@@ -3,7 +3,7 @@
  * Two-level dropdown: Document Type → Class → Preview & Download
  */
 
-import { fetchClasses, fetchDocumentData, fetchAllDocumentData, isApiConfigured } from "../api/sheets.js";
+import { fetchClasses, fetchDocumentData, fetchAllDocumentData, isApiConfigured, refreshCache } from "../api/sheets.js";
 import { generatePresensiGuru } from "../templates/presensi-guru.js";
 import { generatePresensiKelasLandscape } from "../templates/presensi-kelas-landscape.js";
 import { generatePresensiKelasPortrait } from "../templates/presensi-kelas-portrait.js";
@@ -41,8 +41,16 @@ export function createSelector() {
 
   section.innerHTML = `
     <div class="selector__card">
-      <h2 class="selector__title">Pilih Dokumen</h2>
-      <p class="selector__description">Pilih jenis dokumen dan kelas untuk melihat pratinjau dan mengunduh.</p>
+      <div class="selector__header">
+        <div>
+          <h2 class="selector__title">Pilih Dokumen</h2>
+          <p class="selector__description">Pilih jenis dokumen dan kelas untuk melihat pratinjau dan mengunduh.</p>
+        </div>
+        <button class="btn-sync" id="btn-sync" type="button" title="Sinkronisasi ulang data dari Google Sheets">
+          <svg class="btn-sync__icon" id="sync-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+          <span class="btn-sync__text">Sync Data</span>
+        </button>
+      </div>
 
       <div class="filters-row">
         <div class="select-group" id="group-document">
@@ -100,6 +108,36 @@ export function createSelector() {
   const btnPreview = /** @type {HTMLButtonElement} */ (section.querySelector("#btn-preview"));
   const btnUnduhPdf = /** @type {HTMLButtonElement} */ (section.querySelector("#btn-unduh-pdf"));
   const btnUnduhExcel = /** @type {HTMLButtonElement} */ (section.querySelector("#btn-unduh-excel"));
+  const btnSync = /** @type {HTMLButtonElement} */ (section.querySelector("#btn-sync"));
+  const syncIcon = /** @type {SVGElement} */ (section.querySelector("#sync-icon"));
+
+  // --- Event: Sync Button ---
+  btnSync.addEventListener("click", async () => {
+    if (btnSync.disabled) return;
+    btnSync.disabled = true;
+    syncIcon.classList.add('btn-sync__icon--spinning');
+    const syncText = /** @type {HTMLElement} */ (btnSync.querySelector('.btn-sync__text'));
+    const originalText = syncText.textContent;
+    syncText.textContent = 'Syncing...';
+
+    try {
+      await refreshCache();
+      syncText.textContent = 'Berhasil ✓';
+      // Reload classes if document is selected
+      if (selectedDocument) {
+        await loadClasses();
+      }
+      setTimeout(() => { syncText.textContent = originalText; }, 2000);
+    } catch (err) {
+      console.error('Sync failed:', err);
+      syncText.textContent = 'Gagal!';
+      syncText.style.color = '#EF4444';
+      setTimeout(() => { syncText.textContent = originalText; syncText.style.color = ''; }, 2000);
+    } finally {
+      btnSync.disabled = false;
+      syncIcon.classList.remove('btn-sync__icon--spinning');
+    }
+  });
 
   // --- Event: Document Type Selected ---
   selectDocument.addEventListener("change", async (e) => {

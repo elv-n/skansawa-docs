@@ -180,6 +180,19 @@ export async function fetchWaliKelas(kelas) {
 }
 
 /**
+ * Force clear cache and re-fetch all data from Google Sheets.
+ * @returns {Promise<Array>}
+ */
+export async function refreshCache() {
+  memoryCache = null;
+  localStorage.removeItem(CACHE_KEY);
+  const data = await apiRequest('getAllDocumentData', {}, 1);
+  memoryCache = data;
+  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  return data;
+}
+
+/**
  * Check if API is configured
  * @returns {boolean}
  */
