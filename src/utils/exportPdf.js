@@ -67,7 +67,7 @@ export async function downloadPDF(htmlContent, options = {}) {
       onProgress(i + 1, total);
 
       const canvas = await html2canvasLib(pageElements[i], {
-        scale: 1.5, // Lower scale = faster, still good quality for text
+        scale: 3.5, // Higher scale = crisp text and high res PDF
         useCORS: true,
         logging: false,
       });

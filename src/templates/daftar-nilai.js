@@ -16,7 +16,8 @@ export function generateDaftarNilai(data) {
     const isFilled = !!(s.nama || s.nis || s.noAbsen);
 
     let nameClass = "dn-nama";
-    if (s.nama && s.nama.length > 25) nameClass += " dn-xs";
+    if (s.nama && s.nama.length > 32) nameClass += " dn-xxs";
+    else if (s.nama && s.nama.length > 25) nameClass += " dn-xs";
     else if (s.nama && s.nama.length > 18) nameClass += " dn-sm";
 
     rows.push(`<tr>

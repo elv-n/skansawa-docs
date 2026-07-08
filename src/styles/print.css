@@ -203,6 +203,7 @@
   padding-left: 4px;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .doc-table td.text-sm {
@@ -213,6 +214,11 @@
 .doc-table td.text-xs {
   font-size: 6pt;
   letter-spacing: -0.4px;
+}
+
+.doc-table td.text-xxs {
+  font-size: 5pt;
+  letter-spacing: -0.6px;
 }
 
 /* Column widths (Total 100%) */
@@ -427,6 +433,7 @@
   padding-left: 2px !important;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ls-sm {
@@ -434,6 +441,10 @@
 }
 .ls-xs {
   font-size: 5.5pt;
+}
+.ls-xxs {
+  font-size: 4.8pt;
+  letter-spacing: -0.5px;
 }
 
 /* Column widths — landscape 310mm usable
@@ -606,12 +617,14 @@
 .pt-nama, .pt-nama-col {
   text-align: left !important;
   padding-left: 1px !important;
-  white-space: nowrap;
-  overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1;
 }
 
 .pt-sm { font-size: 4.5pt; }
 .pt-xs { font-size: 4pt; }
+.pt-xxs { font-size: 3.5pt; letter-spacing: -0.4px; }
 
 /* Column Widths */
 .pt-no { width: 2.5%; }
@@ -727,10 +740,12 @@
   padding-left: 3px !important;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dn-sm { font-size: 5pt; }
 .dn-xs { font-size: 4.5pt; }
+.dn-xxs { font-size: 4pt; letter-spacing: -0.5px; }
 
 /* Column Widths */
 .dn-col-no { width: 2.5%; }

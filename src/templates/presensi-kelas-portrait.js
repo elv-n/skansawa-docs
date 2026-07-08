@@ -19,7 +19,8 @@ export function generatePresensiKelasPortrait(data) {
     const isFilled = !!(s.nama || s.nis || s.noAbsen);
     
     let nameClass = 'pt-nama';
-    if (s.nama && s.nama.length > 25) nameClass += ' pt-xs';
+    if (s.nama && s.nama.length > 32) nameClass += ' pt-xxs';
+    else if (s.nama && s.nama.length > 25) nameClass += ' pt-xs';
     else if (s.nama && s.nama.length > 18) nameClass += ' pt-sm';
 
     const dateCols = Array(31).fill('<td></td>').join('');
@@ -70,7 +71,7 @@ export function generatePresensiKelasPortrait(data) {
             <th rowspan="2" class="pt-nama-col">NAMA SISWA</th>
             <th class="pt-jk">JK</th>
             <th colspan="31">TANGGAL</th>
-            <th colspan="3">Ketidak<br/>hadiran</th>
+            <th colspan="3" style="font-size: 7.5pt; letter-spacing: -0.2px;">Ketidak<br/>hadiran</th>
             <th rowspan="2" class="pt-ket">Ket</th>
           </tr>
           <tr>

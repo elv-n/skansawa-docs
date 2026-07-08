@@ -16,7 +16,8 @@ export function generatePresensiKelasLandscape(data) {
   // Generate rows — only for filled students, no padding
   const rows = filledStudents.map((s) => {
     let nameClass = 'ls-nama';
-    if (s.nama && s.nama.length > 30) nameClass += ' ls-xs';
+    if (s.nama && s.nama.length > 36) nameClass += ' ls-xxs';
+    else if (s.nama && s.nama.length > 30) nameClass += ' ls-xs';
     else if (s.nama && s.nama.length > 22) nameClass += ' ls-sm';
 
     const dateCols = Array(31).fill('<td></td>').join('');
@@ -75,7 +76,7 @@ export function generatePresensiKelasLandscape(data) {
             <th rowspan="2" class="ls-nama-col">NAMA SISWA</th>
             <th class="ls-jk-h">JK</th>
             <th colspan="31" class="ls-tgl-h">TANGGAL</th>
-            <th colspan="3" class="ls-sia-h">Ketidak<br>hadiran</th>
+            <th colspan="3" class="ls-sia-h" style="font-size: 7.5pt; letter-spacing: -0.2px;">Ketidak<br>hadiran</th>
             <th rowspan="2" class="ls-ket">Ket</th>
           </tr>
           <tr>
