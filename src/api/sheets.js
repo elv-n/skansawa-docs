@@ -22,15 +22,6 @@ function delay(ms) {
  * In production, call Google Apps Script directly.
  */
 function buildUrl(action, params = {}) {
-  if (import.meta.env.DEV) {
-    const url = new URL('/api', window.location.origin);
-    url.searchParams.set('action', action);
-    Object.entries(params).forEach(([key, value]) => {
-      url.searchParams.set(key, value);
-    });
-    return url.toString();
-  }
-
   const url = new URL(APPS_SCRIPT_URL);
   url.searchParams.set('action', action);
   Object.entries(params).forEach(([key, value]) => {
