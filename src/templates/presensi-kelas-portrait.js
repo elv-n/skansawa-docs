@@ -103,7 +103,7 @@ export function generatePresensiKelasPortrait(data) {
 
         <!-- Signatures -->
         <div class="pt-signatures" style="display: flex; justify-content: space-between; margin-top: 15px;">
-          <div class="pt-sig-block" style="text-align: left;">
+          <div class="pt-sig-block" style="text-align: left; padding-left: 60px;">
             <div class="pt-sig-title">Mengetahui,<br/>Kepala Sekolah</div>
             <div class="pt-sig-name">
               <strong><u>Agus Surono, S.Pd., M.M., Gr.</u></strong><br/>

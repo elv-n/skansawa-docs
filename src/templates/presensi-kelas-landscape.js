@@ -112,7 +112,7 @@ export function generatePresensiKelasLandscape(data) {
 
       <!-- Signatures -->
       <div class="ls-sigs">
-        <div class="ls-sig">
+        <div class="ls-sig" style="padding-left: 60px;">
           <div>Mengetahui,</div>
           <div>Kepala Sekolah</div>
           <div class="ls-sig-space"></div>
