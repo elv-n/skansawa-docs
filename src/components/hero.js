@@ -14,7 +14,7 @@ export function createHero() {
   </div>
 
   <p class="hero__subtitle">
-    Presensi dan Daftar Nilai Tahun Ajaran 2026/2027
+    Presensi, Jurnal dan Daftar Nilai Tahun Ajaran 2026/2027
   </p>
 
   <p class="hero__tagline">

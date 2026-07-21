@@ -11,6 +11,7 @@ import { generateDaftarNilai } from "../templates/daftar-nilai.js";
 import { downloadPDF } from "../utils/exportPdf.js";
 import { downloadExcel } from "../utils/exportExcel.js";
 import { showPreviewOverlay } from "../utils/previewOverlay.js";
+import jurnalGuruFile from "../../docs/Jurnal_guru_kelas_guruwali.xlsx?url";
 
 /** Available document types (hardcoded) */
 const DOCUMENT_TYPES = [
@@ -18,6 +19,7 @@ const DOCUMENT_TYPES = [
   { id: "presensi-kelas-portrait", label: "Presensi Kelas Portrait" },
   { id: "presensi-kelas-landscape", label: "Presensi Kelas Landscape" },
   { id: "daftar-nilai", label: "Daftar Nilai" },
+  { id: "jurnal-guru", label: "Jurnal Guru Mengajar dan Guru Wali" },
 ];
 
 /**
@@ -111,6 +113,9 @@ export function createSelector() {
   const btnSync = /** @type {HTMLButtonElement} */ (section.querySelector("#btn-sync"));
   const syncIcon = /** @type {SVGElement} */ (section.querySelector("#sync-icon"));
 
+  const PDF_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg>`;
+  const EXCEL_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/><line x1="15" y1="9" x2="15" y2="21"/></svg>`;
+
   // --- Event: Sync Button ---
   btnSync.addEventListener("click", async () => {
     if (btnSync.disabled) return;
@@ -144,11 +149,29 @@ export function createSelector() {
     selectedDocument = /** @type {HTMLSelectElement} */ (e.target).value;
     selectedClass = null;
 
-    selectClass.value = "";
-    selectClass.disabled = true;
     hideActionButtons();
 
-    await loadClasses();
+    if (selectedDocument === "jurnal-guru") {
+      classContent.innerHTML = `
+        <select class="select-input" id="select-class" disabled>
+          <option value="" disabled selected>—</option>
+        </select>
+      `;
+      selectSemester.disabled = true;
+      
+      btnPreview.style.display = "none";
+      btnUnduhPdf.style.display = "none";
+      btnUnduhExcel.innerHTML = `<span class="btn-print__icon">${EXCEL_ICON}</span> Unduh File Jurnal`;
+      
+      showActionButtons();
+    } else {
+      selectSemester.disabled = false;
+      btnPreview.style.display = "";
+      btnUnduhPdf.style.display = "";
+      btnUnduhExcel.innerHTML = `<span class="btn-print__icon">${EXCEL_ICON}</span> Unduh Excel`;
+      
+      await loadClasses();
+    }
   });
 
   // --- Event: Class Selected ---
@@ -174,8 +197,6 @@ export function createSelector() {
     showPreviewOverlay(currentHtmlPages, isLandscape);
   });
 
-  const PDF_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg>`;
-
   // --- Event: Download PDF ---
   btnUnduhPdf.addEventListener("click", async () => {
     if (!selectedDocument || !selectedClass || currentHtmlPages.length === 0) return;
@@ -200,10 +221,18 @@ export function createSelector() {
     }
   });
 
-  const EXCEL_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/><line x1="15" y1="9" x2="15" y2="21"/></svg>`;
-
   // --- Event: Download Excel ---
   btnUnduhExcel.addEventListener("click", async () => {
+    if (selectedDocument === "jurnal-guru") {
+      const link = document.createElement("a");
+      link.href = jurnalGuruFile;
+      link.download = "Jurnal_guru_kelas_guruwali.xlsx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return;
+    }
+
     if (!selectedDocument || !selectedClass || currentPagesData.length === 0) return;
     const docType = DOCUMENT_TYPES.find((d) => d.id === selectedDocument);
 

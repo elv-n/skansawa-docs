@@ -3,20 +3,20 @@
  * Assembles Hero + Selector into #app
  */
 
-import './styles/index.css';
-import './styles/print.css';
-import { createHero } from './components/hero.js';
-import { createSelector } from './components/dropdown.js';
-import { fetchAllDocumentData, isApiConfigured } from './api/sheets.js';
+import "./styles/index.css";
+import "./styles/print.css";
+import { createHero } from "./components/hero.js";
+import { createSelector } from "./components/dropdown.js";
+import { fetchAllDocumentData, isApiConfigured } from "./api/sheets.js";
 
 async function init() {
-  const app = document.getElementById('app');
+  const app = document.getElementById("app");
   if (!app) return;
 
   // Show Loading Overlay if API is configured
   if (isApiConfigured()) {
-    const overlay = document.createElement('div');
-    overlay.className = 'global-loading-overlay';
+    const overlay = document.createElement("div");
+    overlay.className = "global-loading-overlay";
     overlay.innerHTML = `
       <div class="global-loading-content">
         <div class="global-spinner"></div>
@@ -28,10 +28,10 @@ async function init() {
     `;
     document.body.appendChild(overlay);
 
-    const timerEl = overlay.querySelector('.global-loading-timer');
-    const skipBtn = overlay.querySelector('.global-loading-skip');
-    const subtitleEl = overlay.querySelector('.global-loading-subtitle');
-    const spinnerEl = overlay.querySelector('.global-spinner');
+    const timerEl = overlay.querySelector(".global-loading-timer");
+    const skipBtn = overlay.querySelector(".global-loading-skip");
+    const subtitleEl = overlay.querySelector(".global-loading-subtitle");
+    const spinnerEl = overlay.querySelector(".global-spinner");
     let seconds = 0;
     let done = false;
 
@@ -41,14 +41,14 @@ async function init() {
       timerEl.textContent = `${seconds} detik...`;
       // Show skip button after 5 seconds
       if (seconds >= 5 && !done) {
-        skipBtn.style.display = 'inline-block';
+        skipBtn.style.display = "inline-block";
       }
     }, 1000);
 
     // Skip button handler
     const skipPromise = new Promise((resolve) => {
-      skipBtn.addEventListener('click', () => {
-        resolve('skipped');
+      skipBtn.addEventListener("click", () => {
+        resolve("skipped");
       });
     });
 
@@ -57,23 +57,20 @@ async function init() {
       done = true;
       clearInterval(interval);
       if (success) {
-        subtitleEl.textContent = 'Data berhasil dimuat ✓';
-        spinnerEl.style.borderTopColor = '#10B981';
+        subtitleEl.textContent = "Data berhasil dimuat ✓";
+        spinnerEl.style.borderTopColor = "#10B981";
       }
-      overlay.classList.add('hidden');
+      overlay.classList.add("hidden");
       setTimeout(() => overlay.remove(), 400);
     }
 
     try {
-      const result = await Promise.race([
-        fetchAllDocumentData().then(() => 'done'),
-        skipPromise,
-      ]);
-      dismissOverlay(result === 'done');
+      const result = await Promise.race([fetchAllDocumentData().then(() => "done"), skipPromise]);
+      dismissOverlay(result === "done");
     } catch (err) {
-      console.error('Gagal memuat data awal:', err);
-      subtitleEl.textContent = 'Gagal memuat data, lanjut tanpa cache';
-      subtitleEl.style.color = '#EF4444';
+      console.error("Gagal memuat data awal:", err);
+      subtitleEl.textContent = "Gagal memuat data, lanjut tanpa cache";
+      subtitleEl.style.color = "#EF4444";
       setTimeout(() => dismissOverlay(false), 1500);
     }
   }
@@ -85,15 +82,15 @@ async function init() {
   app.appendChild(createSelector());
 
   // Render Footer
-  const footer = document.createElement('footer');
-  footer.className = 'footer';
-  footer.textContent = 'EduDocs · Document Engine';
+  const footer = document.createElement("footer");
+  footer.className = "footer";
+  footer.textContent = "SMK Negeri 1 Wadaslintang · 2026";
   app.appendChild(footer);
 }
 
 // Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
 } else {
   init();
 }
