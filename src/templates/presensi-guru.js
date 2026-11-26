@@ -92,7 +92,7 @@ export function generatePresensiGuru(data) {
             <th rowspan="3" class="col-nis">NIS</th>
             <th rowspan="3" class="col-nama">NAMA SISWA</th>
             <th class="col-jk">JK</th>
-            <th colspan="20">PERTEMUAN</th>
+            <th colspan="20">PERTEMUAN/TANGGAL</th>
             <th colspan="3" style="font-size: 7.5pt; letter-spacing: -0.2px;">Ketidak<br>hadiran</th>
             <th rowspan="3" class="col-ket">Ket</th>
           </tr>
