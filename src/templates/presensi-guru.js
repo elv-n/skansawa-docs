@@ -88,20 +88,23 @@ export function generatePresensiGuru(data) {
       <table class="doc-table">
         <thead>
           <tr>
-            <th rowspan="2" class="col-no">No</th>
-            <th rowspan="2" class="col-nis">NIS</th>
-            <th rowspan="2" class="col-nama">NAMA SISWA</th>
+            <th rowspan="3" class="col-no">No</th>
+            <th rowspan="3" class="col-nis">NIS</th>
+            <th rowspan="3" class="col-nama">NAMA SISWA</th>
             <th class="col-jk">JK</th>
             <th colspan="20">PERTEMUAN</th>
             <th colspan="3" style="font-size: 7.5pt; letter-spacing: -0.2px;">Ketidak<br>hadiran</th>
-            <th rowspan="2" class="col-ket">Ket</th>
+            <th rowspan="3" class="col-ket">Ket</th>
           </tr>
           <tr>
-            <th>L/P</th>
+            <th rowspan="2">L/P</th>
             ${Array.from({ length: 20 }, (_, i) => `<th class="col-pertemuan">${i + 1}</th>`).join("")}
-            <th class="col-absen">S</th>
-            <th class="col-absen">I</th>
-            <th class="col-absen">A</th>
+            <th rowspan="2" class="col-absen">S</th>
+            <th rowspan="2" class="col-absen">I</th>
+            <th rowspan="2" class="col-absen">A</th>
+          </tr>
+          <tr>
+            ${Array(20).fill('<th class="col-pertemuan" style="height: 18px;">&nbsp;</th>').join("")}
           </tr>
         </thead>
         <tbody>

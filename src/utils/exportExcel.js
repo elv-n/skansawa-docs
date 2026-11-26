@@ -87,10 +87,11 @@ function generateExcelPresensiGuru(workbook, pagesData) {
     const alignCenter = { horizontal: 'center', vertical: 'middle' };
     const fontBold = { name: 'Times New Roman', bold: true, size: 10 };
 
-    sheet.mergeCells(`A${row}:A${row+1}`); sheet.getCell(`A${row}`).value = 'No';
-    sheet.mergeCells(`B${row}:B${row+1}`); sheet.getCell(`B${row}`).value = 'NIS';
-    sheet.mergeCells(`C${row}:C${row+1}`); sheet.getCell(`C${row}`).value = 'NAMA SISWA';
-    sheet.getCell(`D${row}`).value = 'JK'; sheet.getCell(`D${row+1}`).value = 'L/P';
+    sheet.mergeCells(`A${row}:A${row+2}`); sheet.getCell(`A${row}`).value = 'No';
+    sheet.mergeCells(`B${row}:B${row+2}`); sheet.getCell(`B${row}`).value = 'NIS';
+    sheet.mergeCells(`C${row}:C${row+2}`); sheet.getCell(`C${row}`).value = 'NAMA SISWA';
+    sheet.getCell(`D${row}`).value = 'JK';
+    sheet.mergeCells(`D${row+1}:D${row+2}`); sheet.getCell(`D${row+1}`).value = 'L/P';
     
     sheet.mergeCells(`E${row}:X${row}`); sheet.getCell(`E${row}`).value = 'PERTEMUAN';
     for(let i=0; i<20; i++) {
@@ -99,14 +100,14 @@ function generateExcelPresensiGuru(workbook, pagesData) {
     }
 
     sheet.mergeCells(`Y${row}:AA${row}`); sheet.getCell(`Y${row}`).value = 'Ketidakhadiran';
-    sheet.getCell(`Y${row+1}`).value = 'S';
-    sheet.getCell(`Z${row+1}`).value = 'I';
-    sheet.getCell(`AA${row+1}`).value = 'A';
+    sheet.mergeCells(`Y${row+1}:Y${row+2}`); sheet.getCell(`Y${row+1}`).value = 'S';
+    sheet.mergeCells(`Z${row+1}:Z${row+2}`); sheet.getCell(`Z${row+1}`).value = 'I';
+    sheet.mergeCells(`AA${row+1}:AA${row+2}`); sheet.getCell(`AA${row+1}`).value = 'A';
 
-    sheet.mergeCells(`AB${row}:AB${row+1}`); sheet.getCell(`AB${row}`).value = 'Ket';
+    sheet.mergeCells(`AB${row}:AB${row+2}`); sheet.getCell(`AB${row}`).value = 'Ket';
 
     // Apply styles to headers
-    for(let r=row; r<=row+1; r++) {
+    for(let r=row; r<=row+2; r++) {
         for(let c=1; c<=28; c++) {
             const cell = sheet.getCell(r, c);
             cell.border = borderAll;
@@ -115,8 +116,9 @@ function generateExcelPresensiGuru(workbook, pagesData) {
             cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF5F5F5' } };
         }
     }
+    sheet.getRow(row + 2).height = 20;
 
-    row += 2;
+    row += 3;
 
     // Table Data
     students.forEach((s) => {
